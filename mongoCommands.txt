@@ -1,0 +1,107 @@
+MongoDB works On BJSON ==> Many Data Types
+ 
+MongoDB Commands
+    show db list 
+        show dbs
+
+    Create or to Switch To Database
+        use slidetemplate
+
+    Check Current Database
+        db 
+ 
+    Delete Database
+        db.dropDatabase()
+ 
+    Create a collection 
+        db.createCollection('mytemplates')
+ 
+    get Collection List 
+        show collections
+ 
+    Delete Collection 
+        db.mytemplates.drop()
+ 
+primary_key ===> auto generated ==> _id ==> 12 Bytes
+"_id" : ObjectId("62d0f05eec0a8ac58ee7cd6a")
+4-Bytes ===> timeStamp  (01-01-1970)
+3-Bytes ==> Machine ID
+2-Bytes ==> Process ID
+3-Bytes ==> Counter (Random)
+ 
+Create (Add)
+    Single 
+        db.mytemplates.insert({})
+    Multiple
+        insertMany
+        db.mytemplates.insertMany([{},{},{}])
+ 
+Read Data
+    db.mytemplates.find()
+    db.mytemplates.find({name:"Slide-1"})
+    db.mytemplates.find({name:"Slide-1"},{slides:0})
+    db.mytemplates.find({},{slides:0,_id:0})
+    db.mytemplates.find().count()
+    db.mytemplates.find().limit(3)
+ 
+    $eq
+    $lt
+    $gt
+    $lte
+    $gte
+    $in
+ 
+    db.mytemplates.find({slidesCount:{$eq:7}})
+    db.mytemplates.find({
+                            slidesCount:{
+                                    $gte:3,
+                                    $lte:10
+                                        }
+                        },{name:1,slidesCount:1})
+ 
+    db.mytemplates.find({$or:[{slidesCount:{$eq:7}},{slidesCount:{$eq:10}}]},{name:1,slidesCount:1})
+    db.mytemplates.find({$and:[{slidesCount:{$eq:7}},{slidesCount:{$lt:10}}]},{name:1,slidesCount:1})
+ 
+Update
+    db.mytemplates.updateOne({name:"Slide-3"},{$set:{name:"Slide-6"}}); // update filed
+    db.mytemplates.updateOne({name:"Slide-6"},{$set:{slide:[]}}); // add filed 
+    db.mytemplates.updateOne({name:"Slide-6"},{$rename:{ slide:"slides"}}); // add filed 
+    db.mytemplates.updateMany({},{$set:{slidesCount:0}}); // add filed 
+
+Delete
+    db.mytemplates.remove({name:"Slide-6})
+ 
+db.mytemplates.updateOne({name:"Slide-1"},{$set:{slidesCount:3}});
+db.mytemplates.updateOne({name:"Slide-2"},{$set:{slidesCount:10}});
+db.mytemplates.updateOne({name:"Slide-4"},{$set:{slidesCount:15}});
+db.mytemplates.updateOne({name:"Slide-5"},{$set:{slidesCount:7}});
+ 
+
+users
+    username
+    name
+    password
+    email
+    role
+ 
+insert 5
+    2 name ==> same
+    role 
+        1 ===> admin
+        2 ===> users
+        2 ===> developer
+ 
+update 
+    change 
+        role ===> developer to admin
+ 
+
+read data
+    # user ===> admin
+    # read all data
+    # display username & password
+    # details ===> same_name
+    # count of users
+ 
+delete 
+    role as a developer
